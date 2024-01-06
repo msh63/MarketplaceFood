@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -78,15 +80,16 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': config('DB_NAME'),
-        'USER':config('DB_USER'),
+        'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
-        'HOST' :config('DB_HOST') ,
+        'HOST': config('DB_HOST'),
         'PORT': '',
-        
+
 
     }
 }
 
+AUTH_USER_MODEL = 'accounts.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -124,7 +127,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR/'static'
-STATICFILES_DIRS=[
+STATICFILES_DIRS = [
     'foodonline_main/static'
 ]
 
