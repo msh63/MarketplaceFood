@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "foodonline"
-    ]
+    ],
+    "editor.formatOnSave": true,
+    "notebook.formatOnSave.enabled": true,
+    "files.autoSave": "afterDelay"
 }
