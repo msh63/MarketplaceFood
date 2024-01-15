@@ -8,7 +8,7 @@ from .models import User
 
 def registerUser(request):
     if request.method == 'POST':
-        print(request.POST)
+        
         form = UserForm(request.POST)
         if form.is_valid():
 
@@ -32,6 +32,9 @@ def registerUser(request):
             user.save()
             print('User is created')
             return redirect('registerUser')
+        else:
+            print('invalid form')
+            print(form.errors)
     else:
         form = UserForm()
     context = {
