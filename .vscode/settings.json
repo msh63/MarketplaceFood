@@ -1,8 +1,10 @@
 {
-    "cSpell.words": [
-        "foodonline"
-    ],
-    "editor.formatOnSave": true,
-    "notebook.formatOnSave.enabled": true,
-    "files.autoSave": "afterDelay"
+  "cSpell.words": [
+    "custdashboard",
+    "foodonline",
+    "vendordashboard"
+  ],
+  "editor.formatOnSave": true,
+  "notebook.formatOnSave.enabled": true,
+  "files.autoSave": "afterDelay"
 }
