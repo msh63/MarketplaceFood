@@ -3,7 +3,8 @@
     "Accountviews",
     "custdashboard",
     "foodonline",
-    "vendordashboard"
+    "vendordashboard",
+    "vprofile"
   ],
   "editor.formatOnSave": true,
   "notebook.formatOnSave.enabled": true,
