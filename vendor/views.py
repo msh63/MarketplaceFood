@@ -115,7 +115,7 @@ def edit_category(request, pk=None):
     context = {
         'form': form,
         'category': category,
-        'category_id': category.id 
+         'category_id': category.id 
     }
     return render(request, 'vendor/edit_category.html', context)
 
@@ -156,27 +156,27 @@ def add_food(request):
 def edit_food(request, pk=None):
     food = get_object_or_404(FoodItem, pk=pk)
     if request.method == 'POST':
-        form = FoodItemForm(request.POST,request.FILES, instance=food)
+        form = FoodItemForm(request.POST, request.FILES, instance=food)
         if form.is_valid():
-            food_title = form.cleaned_data['food_title']
+            foodtitle = form.cleaned_data['food_title']
             food = form.save(commit=False)
             food.vendor = get_vendor(request)
-            food.slug = slugify(food_title)
+            food.slug = slugify(foodtitle)
             form.save()
-            messages.success(request, 'Food Items have been updated Successfully!')
-            return redirect('fooditems_by_category',food.category.id)
+            messages.success(request, 'Food Item updated successfully!')
+            return redirect('fooditems_by_category', food.category.id)
         else:
             print(form.errors)
+
     else:
         form = FoodItemForm(instance=food)
-        form.fields['category'].queryset=Category.objects.filter(vendor=get_vendor(request))
-
+        form.fields['category'].queryset = Category.objects.filter(vendor=get_vendor(request))
     context = {
         'form': form,
         'food': food,
-        'food_id': food.id 
     }
     return render(request, 'vendor/edit_food.html', context)
+
 
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
