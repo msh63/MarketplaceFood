@@ -98,12 +98,12 @@ $(document).ready(function(){
                     $('#cart_counter').html(response.cart_counter['cart_count']);
                     $('#qty-'+food_id).html(response.qty);
 
-                //     subtotal, tax, and grand total
-                //     applyCartAmounts(
-                //         response.cart_amount['subtotal'],
-                //         response.cart_amount['tax_dict'],
-                //         response.cart_amount['grand_total']
-                //     );
+                    // subtotal, tax, and grand total
+                    applyCartAmounts(
+                        response.cart_amount['subtotal'],
+                        // response.cart_amount['tax_dict'],
+                        response.cart_amount['grand_total']
+                    );
                 }
             }
         })
@@ -140,11 +140,11 @@ $(document).ready(function(){
                         $('#cart_counter').html(response.cart_counter['cart_count']);
                         $('#qty-'+food_id).html(response.qty);
     
-                        // applyCartAmounts(
-                        //     response.cart_amount['subtotal'],
-                        //     response.cart_amount['tax_dict'],
-                        //     response.cart_amount['grand_total']
-                        // )
+                        applyCartAmounts(
+                            response.cart_amount['subtotal'],
+                            // response.cart_amount['tax_dict'],
+                            response.cart_amount['grand_total']
+                        )
     
                         if(window.location.pathname == '/cart/'){
                             removeCartItem(response.qty, cart_id);
@@ -176,6 +176,12 @@ $(document).ready(function(){
                     swal(response.status, response.message, "success")
 
                     } 
+
+                    applyCartAmounts(
+                        response.cart_amount['subtotal'],
+                        // response.cart_amount['tax_dict'],
+                        response.cart_amount['grand_total']
+                    )
                     removeCartItem(0, cart_id);
                     checkEmptyCart();
             }
@@ -198,6 +204,25 @@ $(document).ready(function(){
         document.getElementById("empty-cart").style.display = "block";
     }
 }
+
+
+    // apply cart amounts
+    function applyCartAmounts(subtotal, grand_total){
+        if(window.location.pathname == '/cart/'){
+            $('#subtotal').html(subtotal)
+            $('#total').html(grand_total)
+            // $('#tax_dict').html(tax_dict)
+
+            // console.log(tax_dict)
+            // for(key1 in tax_dict){
+            //     console.log(tax_dict[key1])
+            //     for(key2 in tax_dict[key1]){
+                    // console.log(tax_dict[key1][key2])
+                //     $('#tax-'+key1).html(tax_dict[key1][key2])
+        //          }
+        //     }
+         }
+    }
 
 
 });     
