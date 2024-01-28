@@ -146,10 +146,11 @@ $(document).ready(function(){
                         //     response.cart_amount['grand_total']
                         // )
     
-                        // if(window.location.pathname == '/cart/'){
-                        //     removeCartItem(response.qty, cart_id);
-                        //     checkEmptyCart();
-                        // }
+                        if(window.location.pathname == '/cart/'){
+                            removeCartItem(response.qty, cart_id);
+                            checkEmptyCart();
+                           // alert('delete!')
+                        }
                         
                     } 
                 }
@@ -176,6 +177,7 @@ $(document).ready(function(){
 
                     } 
                     removeCartItem(0, cart_id);
+                    checkEmptyCart();
             }
         })
     })
@@ -189,6 +191,15 @@ $(document).ready(function(){
 
 } 
     
+ // Check if the cart is empty
+ function checkEmptyCart(){
+    var cart_counter = document.getElementById('cart_counter').innerHTML
+    if(cart_counter == 0){
+        document.getElementById("empty-cart").style.display = "block";
+    }
+}
+
+
 });     
   
     

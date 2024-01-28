@@ -82,6 +82,7 @@ def decrease_cart(request, food_id):
                         chkCart.quantity -= 1
                         chkCart.save()
                     else:
+                        print('delete')
                         chkCart.delete()
                         chkCart.quantity = 0
                     return JsonResponse({'status': 'Success', 'cart_counter': get_cart_counter(request), 'qty': chkCart.quantity, })
