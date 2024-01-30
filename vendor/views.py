@@ -83,8 +83,9 @@ def add_category(request):
             category_name = form.cleaned_data['category_name']
             category = form.save(commit=False)
             category.vendor = get_vendor(request)
-            category.slug = slugify(category_name)
-            form.save()
+            category.save() # here the category id will be generated
+            category.slug = slugify(category_name)+'-'+str(category.id) # chicken-15
+            category.save()
             messages.success(request, 'Category added Successfully!')
             return redirect('menu_builder')
     else:
@@ -148,6 +149,7 @@ def add_food(request):
     context = {
         'form': form,
     }
+    
     return render(request, 'vendor/add_food.html',context)
 
 # def edit_food():
