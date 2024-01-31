@@ -21,7 +21,7 @@ def marketplace(request):
             'vendors':vendors,
             'vendor_count': vendor_count,
         }
-    return render(request,'marketplace/listing.html',context)
+    return render(request,'marketplace/listings.html',context)
 
 def vendor_detail(request,vendor_slug):
     vendor=get_object_or_404(Vendor,vendor_slug=vendor_slug)
