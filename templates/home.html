@@ -1,12 +1,13 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% load static %}
+
 
 {% block content %}
 <!-- Main Section Start -->
 <div class="main-section">
 	<!-- Home Pages Elements Strat -->
 	<!-- Main Search Start -->
-	<div class="page-section nopadding cs-nomargin" style="padding-top: 200px; padding-bottom: 150px; margin-bottom: 0px; background: url(static/extra-images/bg-image1.jpg) no-repeat center / cover;">
+	<div class="page-section nopadding cs-nomargin main-search-bar" style="padding-top: 200px; padding-bottom: 150px; margin-bottom: 0px; background: url({% static 'extra-images/bg-image1.jpg' %}) no-repeat center / cover;">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
@@ -20,11 +21,11 @@
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
 					<div class="main-search fancy bg-holder">
-						<form action="{% url 'search' %}" method="get">
+						<form action="{% url 'search' %}" method="GET">
 							<div class="row">
 								<div class="col-lg-4 col-md-4 col-sm-3 col-xs-12">
 									<div class="field-holder">
-										<input type="text" name="keyword" placeholder="Resturant name or Food name">
+										<input type="text" name="keyword" placeholder="Resturant name or food name">
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-4 col-sm-5 col-xs-12">
@@ -33,7 +34,8 @@
 											<li class="select-location">
 												<div class="foodbakery-locations-fields-group foodbakery-focus-out">
 													<span class="foodbakery-search-location-icon"><i class="icon-location"></i></span>
-													<input type="text"  name="address" class="location-field-text filter" id="id_address" required placeholder="All Locations">
+													
+													<input type="text" name="address" class="location-field-text filter" id="id_address" required placeholder="All Locations">
 													<input type="hidden" name="lat" value="" id="id_latitude">
 													<input type="hidden" name="lng" value="" id="id_longitude">
 												</div>
@@ -86,15 +88,13 @@
 							<li class="has-border">
 								<figure>
 									{% if vendor.user_profile.profile_picture %}
-									<a href="#"><img src="{{ vendor.user_profile.profile_picture.url }}" height="125" class="attachment-full size-full wp-post-image" alt=""></a>
+									<a href="{% url 'vendor_detail' vendor.vendor_slug %}"><img src="{{ vendor.user_profile.profile_picture.url }}" height="125" class="attachment-full size-full wp-post-image" alt=""></a>
 									{% else %}
-									<a href="#"><img src="{% static 'images/default-profile.png' %}" height="125" class="attachment-full size-full wp-post-image" alt=""></a>
+									<a href="{% url 'vendor_detail' vendor.vendor_slug %}"><img src="{% static 'images/default-profile.png' %}" height="125" class="attachment-full size-full wp-post-image" alt=""></a>
 									{% endif %}
 								</figure>
 							</li>
 							{% endfor %}
-							
-							
 						</ul>
 					</div>
 				</div>
@@ -120,7 +120,7 @@
 								<div class="list-post featured">
 									<div class="img-holder">
 										<figure>
-											<a href="#">
+											<a href="{% url 'vendor_detail' vendor.vendor_slug %}">
 												{% if vendor.user_profile.profile_picture %}
 												<img src="{{ vendor.user_profile.profile_picture.url }}" class="img-thumb wp-post-image" alt="">
 												{% else %}
@@ -128,24 +128,32 @@
 												{% endif %}
 											</a>
 										</figure>
+										{% if vendor.is_open %}
+										<span class="restaurant-status open">
+											<em class="bookmarkRibbon"></em>Open
+										</span>
+										{% else %}
 										<span class="restaurant-status close">
 											<em class="bookmarkRibbon"></em>Close
 										</span>
+										{% endif %}
+
 									</div>
 									<div class="text-holder">
-										<div class="list-rating">
-											<div class="rating-star">
-												<span class="rating-box" style="width: 100%;"></span>
-											</div>
-											<span class="reviews">(1)</span>
-										</div>
+										
 										<div class="post-title">
 											<h5>
-												<a href="listing-detail.html">Restaurant Demo</a>
-												<span class="sponsored text-color">Sponsored</span>
+												<a href="{% url 'vendor_detail' vendor.vendor_slug %}">{{ vendor }}</a>
 											</h5>
 										</div>
-										<address> <span>Type of food : </span> Apple Juice</address>
+										{% if vendor.user_profile.city and vendor.user_profile.state and vendor.user_profile.pin_code %}
+										<span>{{ vendor.user_profile.city }}, {{ vendor.user_profile.state }}, {{ vendor.user_profile.pin_code }}</span>
+										{% endif %}
+
+										{% if vendor.kms %}
+											<br>
+											<span><small><b>{{vendor.kms}} km </b>away</small></span>
+										{% endif %}
 									</div>
 									<div class="list-option">
 										<a href="javascript:void(0);" class="shortlist-btn" data-toggle="modal" data-target="#sign-in">
@@ -155,6 +163,7 @@
 								</div>
 							</li>
 							{% endfor %}
+						
 						</ul>
 					</div>
 				</div>
@@ -165,6 +174,5 @@
 
 	<!-- Home Pages Elements End  -->
 </div>
-
 <!-- Main Section End -->
 {% endblock %}
